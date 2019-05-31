@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CHOYS</title>
+ 	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+ 	<link rel="stylesheet" href="bootstrap3/css/bootstrap-theme.css">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="JQuery/jquery.min.js"></script>
+	
+</head>
+<body>
+	<h1 class="text-center">Examen Practico CHOYS</h1>
+	<br>
+	<form class="container form-horizontal" >
+		<div class="form-group" id="divnom">
+			<label class="control-label col-sm-2" >Nombre:</label>
+			<div class="col-sm-8">
+				<input type="name" id="IptNombre" class="form-control" placeholder="Nombre" >
+				<span class="help-block" id="spannom">Nombre</span>
+			</div>
+		</div>
+		<div class="form-group" id="divcorreo" >
+    		<label class="control-label col-sm-2" >Email:</label>
+    		<div class="col-sm-8">
+      			<input type="email" class="form-control" id="IptCorreo" placeholder="Introduce tu email">
+      			<span class="help-block" id="spancorreo">Email</span>
+    		</div>
+  		</div>
+  		<div class="form-group" id="divtelefono">
+			<label class="control-label col-sm-2" >Telefono:</label>
+			<div class="col-sm-8">
+				<input type="name" id="IptTelefono" class="form-control" placeholder="Introduce tu telefono a 10 digitos xxxxxxxxxx" >
+				<span class="help-block" id="spantelefono"></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" >Estado civil:</label>
+			<div class="col-sm-8">
+				<select class="form-control" id="SltEstadoCivil">
+  					<option>Solter@</option>
+  					<option>Casad@</option>
+ 					<option>Divorsiad@</option>
+  					<option>Viud@</option>
+  					<option>Conyugal</option>
+					</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" >¿Tienes hijos?</label>
+			<div class="col-sm-8 radio">
+				<label class="radio-inline">
+ 				<input type="radio" name="hijos" id="RbHijosSi" value="Si"> Si
+				</label>
+				<label class="radio-inline">
+  				<input type="radio" name="hijos" id="RbHijosNo" value="No"> No
+				</label>
+			</div>
+		</div>
+		<div class="form-group" id="divIntereses">
+			<label class="control-label col-sm-2" >Intereses</label>
+			<div class="col-sm-8 radio">
+				<label class="checkbox-inline"><input type="checkbox" id="CbxLibros">Libros</label>
+				<label class="checkbox-inline"><input type="checkbox" id="CbxMusica">Musica</label>
+				<label class="checkbox-inline"><input type="checkbox" id="CbxDeportes">Deportes</label>
+				<label class="checkbox-inline"><input type="checkbox" id="CbxOtros">Otros</label>
+			</div>
+			<span class="help-block" id="spanIntereses"></span>
+		</div>
+		<div class="form-group text-center">
+			<button type="button" class="btn btn-warning btn-responsive" id="btnRegresar">Regresar</button> 
+			<button type="button" class="btn btn-primary btn-responsive" id="btnGuardar">Guardar</button>
+		</div>
+	</form>
+	<script src="JQuery/validacion.js"></script>
+	<br>
+     <!--Creacion de la tabla al momento del llamado del ws -->
+    <script type="text/javascript">	
+		var tabla="<table class=\"table table-hover\">";
+		    tabla+="<thead class=\"thead-dark\">"
+	        tabla+="<tr>";
+		    tabla+="<th scope=\"row \">id</td>";
+		    tabla+="<th scope=\"row \">Nombre Completo</td>";
+		    tabla+="<th scope=\"row \">Correo</td>";
+		    tabla+="<th scope=\"row \">Avatar</td>";
+	        tabla+="</tr>";
+	        tabla+="</thead>"
+		$.get("https://reqres.in/api/users?page=2", function(data){
+    	var Elementos=data.data;
+		for (var i = 0; i < Elementos.length; i++) {     
+		     elemento=Elementos[i];     
+           	tabla+="<tr>";
+           	tabla+="<td>"+elemento.id+"</td>";
+           	tabla+="<td>"+elemento.first_name+" "+elemento.last_name+"</td>";
+           	tabla+="<td>"+elemento.email+"</td>";
+           	tabla+="<td> <img src='"+elemento.avatar+"'></td>";
+           	tabla+="</tr>";    	
+		}
+		   tabla+="</table>";
+		$("#Tabla").html(tabla);
+		}); 
+	</script>
+    <!--Campo de la tabla -->
+	<div id="Tabla" class="container .table table-responsive"></div>
+</div>
+</body>
+</html>
