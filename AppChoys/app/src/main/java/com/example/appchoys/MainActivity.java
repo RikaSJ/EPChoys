@@ -39,14 +39,25 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Cursor cursor;
     ArrayList<Usuarios> LU= new ArrayList<>();
+    TextView espera;
+    int x=0;
     final BdUsuarios conn= new BdUsuarios(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Ws();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Creacion del Recycler
-        VistaRecycler();
+        Ws();
+        espera= (TextView) findViewById(R.id.cargando);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    espera.setVisibility(View.GONE);
+                    LU=Extraccion();
+                    VistaRecycler();
+                    x++;
+                }
+            },1200);
+
     }
     public void VistaRecycler(){
         recyclerView = (RecyclerView) findViewById(R.id.ListaUsuarios);
@@ -107,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             queue.add(request);
-            LU=Extraccion();
+
         }catch (Exception ex){
 
         }
